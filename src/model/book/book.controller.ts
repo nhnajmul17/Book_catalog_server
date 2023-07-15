@@ -27,6 +27,28 @@ import { Book } from "./book.model";
 //       .json({ error: "An error occurred while creating the order" });
 //   }
 // };
+const deleteBook = async (req: Request, res: Response) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findByIdAndDelete(bookId);
+    await res.json(book);
+  } catch (error) {
+    console.log("Error Deleting Book:", error);
+    res.status(500).json({ error: "An error occurred while Deleting Book" });
+  }
+};
+const getSingleBook = async (req: Request, res: Response) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
+    await res.json(book);
+  } catch (error) {
+    console.log("Error retrieving Book:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while retrieving the Book" });
+  }
+};
 
 const getAllBooks = async (req: Request, res: Response) => {
   try {
