@@ -22,6 +22,14 @@ const BookSchema = new Schema<IBook>(
       type: String,
       required: true,
     },
+    addedBy: {
+      type: String,
+      required: true,
+    },
+    reviews: {
+      type: [String],
+      required: true,
+    },
   },
   {
     timestamps: true,

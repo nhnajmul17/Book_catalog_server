@@ -27,10 +27,20 @@ import { Book } from "./book.model";
 //       .json({ error: "An error occurred while creating the order" });
 //   }
 // };
+const addBook = async (req: Request, res: Response) => {
+  try {
+    const bookData = req.body;
+    const book = await Book.create(bookData);
+    await res.json(book);
+  } catch (error) {
+    console.log("Error Adding Book:", error);
+    res.status(500).json({ error: "An error occurred while adding Book" });
+  }
+};
 const deleteBook = async (req: Request, res: Response) => {
   try {
     const bookId = req.params.id;
-    const book = await Book.findByIdAndDelete(bookId);
+    const book = await Book.findByIdAndDelete({ _id: bookId });
     await res.json(book);
   } catch (error) {
     console.log("Error Deleting Book:", error);
@@ -66,4 +76,5 @@ export const BookController = {
   getAllBooks,
   getSingleBook,
   deleteBook,
+  addBook,
 };

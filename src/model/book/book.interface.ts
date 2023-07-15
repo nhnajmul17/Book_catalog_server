@@ -4,4 +4,6 @@ type IBook = {
   genre: string;
   image: string;
   publicationDate: string;
+  addedBy: string;
+  reviews: string[];
 };
