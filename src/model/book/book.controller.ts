@@ -27,6 +27,20 @@ import { Book } from "./book.model";
 //       .json({ error: "An error occurred while creating the order" });
 //   }
 // };
+const addReview = async (req: Request, res: Response) => {
+  try {
+    const review = req.body.review;
+    const bookId = req.body.id;
+    const result = await Book.updateOne(
+      { _id: bookId },
+      { $push: { reviews: review } }
+    );
+    await res.json(result);
+  } catch (error) {
+    console.log("Error Adding Book:", error);
+    res.status(500).json({ error: "An error occurred while adding Book" });
+  }
+};
 const addBook = async (req: Request, res: Response) => {
   try {
     const bookData = req.body;
@@ -77,4 +91,5 @@ export const BookController = {
   getSingleBook,
   deleteBook,
   addBook,
+  addReview,
 };
