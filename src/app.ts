@@ -1,6 +1,7 @@
 import express, { Application, urlencoded } from "express";
-import router from "./model/book/book.route";
+// import router from "./model/book/book.route";
 import cors from "cors";
+import router from "./routes";
 
 const app: Application = express();
 

@@ -8,6 +8,5 @@ router.put("/edit-book/:id", BookController.updateBook);
 router.post("/books", BookController.addBook);
 router.post("/review", BookController.addReview);
 router.get("/books", BookController.getAllBooks);
-// router.post("/books", BookController.CreateBook);
 
-export default router;
+export const Bookroutes = router;
