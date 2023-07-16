@@ -1,6 +1,16 @@
 import { Request, Response } from "express";
 import { WishList } from "./wishlist.model";
 
+const removewishlist = async (req: Request, res: Response) => {
+  try {
+    const wishlistId = req.params.id;
+    const wishList = await WishList.findByIdAndDelete({ _id: wishlistId });
+    await res.json(wishList);
+  } catch (error) {
+    console.log("Error in wishlist:", error);
+    res.status(500).json({ error: "An error occurred while posting wishlist" });
+  }
+};
 const addwishlist = async (req: Request, res: Response) => {
   try {
     const wishlistBook = req.body;
@@ -27,4 +37,5 @@ const getwishlist = async (req: Request, res: Response) => {
 export const WishListController = {
   addwishlist,
   getwishlist,
+  removewishlist,
 };
