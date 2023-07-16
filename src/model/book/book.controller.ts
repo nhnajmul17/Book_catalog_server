@@ -1,32 +1,6 @@
 import { Request, Response } from "express";
 import { Book } from "./book.model";
 
-// const CreateBook = async (req: Request, res: Response) => {
-//   try {
-//     const { orderItems, phone } = req.body;
-
-//     // Create the order
-//     const order = await Book.create({ phone });
-
-//     // Create the order items
-//     const orderItemPromises = orderItems.map(async (item: IOrderItem) => {
-//       const { product, quantity } = item;
-//       const orderItem = await OrderItem.create({
-//         orderId: order._id,
-//         product,
-//         quantity,
-//       });
-//     });
-//     await Promise.all(orderItemPromises);
-
-//     res.status(200).json({ message: "Order created successfully" });
-//   } catch (error) {
-//     console.log("Error creating order:", error);
-//     res
-//       .status(500)
-//       .json({ error: "An error occurred while creating the order" });
-//   }
-// };
 const addReview = async (req: Request, res: Response) => {
   try {
     const review = req.body.review;
@@ -41,6 +15,7 @@ const addReview = async (req: Request, res: Response) => {
     res.status(500).json({ error: "An error occurred while adding Book" });
   }
 };
+
 const addBook = async (req: Request, res: Response) => {
   try {
     const bookData = req.body;
@@ -51,6 +26,19 @@ const addBook = async (req: Request, res: Response) => {
     res.status(500).json({ error: "An error occurred while adding Book" });
   }
 };
+const updateBook = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const bookData = req.body;
+
+    const book = await Book.findByIdAndUpdate({ _id: id }, bookData);
+    await res.json(book);
+  } catch (error) {
+    console.log("Error Adding Book:", error);
+    res.status(500).json({ error: "An error occurred while adding Book" });
+  }
+};
+
 const deleteBook = async (req: Request, res: Response) => {
   try {
     const bookId = req.params.id;
@@ -61,6 +49,7 @@ const deleteBook = async (req: Request, res: Response) => {
     res.status(500).json({ error: "An error occurred while Deleting Book" });
   }
 };
+
 const getSingleBook = async (req: Request, res: Response) => {
   try {
     const bookId = req.params.id;
@@ -92,4 +81,5 @@ export const BookController = {
   deleteBook,
   addBook,
   addReview,
+  updateBook,
 };
